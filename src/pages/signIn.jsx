@@ -39,15 +39,9 @@ export default function SignIn() {
 							}}
 						/>
 						{!isShowPassword ? (
-							<LuEye
-								className='absolute top-2 right-3 text-slate-500'
-								onClick={handleClickPreviewPassword}
-							/>
+							<LuEye className='icon-preview' onClick={handleClickPreviewPassword} />
 						) : (
-							<LuEyeOff
-								className='absolute top-2 right-3 text-slate-500'
-								onClick={handleClickPreviewPassword}
-							/>
+							<LuEyeOff className='icon-preview' onClick={handleClickPreviewPassword} />
 						)}
 					</div>
 					<button className='btn w-full !rounded-lg'>Sign In</button>
