@@ -9,3 +9,28 @@ body {
 .btn {
 	@apply border border-slate-500 rounded-full px-4 py-1 bg-[#1BACB0] text-white;
 }
+
+.input {
+	@apply w-full border border-slate-400 rounded-lg p-1 px-3;
+}
+
+p.separator::after {
+	content: '';
+	top: 13px;
+	left: 0;
+	height: 1px;
+	width: 100%;
+	border-bottom: 1px solid lightgrey;
+	position: absolute;
+	z-index: 1;
+}
+
+p.separator {
+	background: white;
+	padding: 0 3px;
+	z-index: 10;
+}
+
+.icon-preview {
+	@apply absolute top-2 right-3 text-slate-500 cursor-pointer;
+}
