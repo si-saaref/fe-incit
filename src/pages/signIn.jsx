@@ -1,14 +1,26 @@
 import { useState } from 'react';
 import { LuEye } from 'react-icons/lu';
 import { LuEyeOff } from 'react-icons/lu';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
 	const [inputEmail, setInputEmail] = useState('');
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
+	const navigate = useNavigate();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);
+	};
+
+	const handleSignIn = () => {
+		const data = {
+			email: inputEmail,
+			password: inputPassword,
+		};
+		console.log(data);
+
+		navigate('/dashboard');
 	};
 
 	return (
@@ -44,7 +56,9 @@ export default function SignIn() {
 							<LuEyeOff className='icon-preview' onClick={handleClickPreviewPassword} />
 						)}
 					</div>
-					<button className='btn w-full !rounded-lg'>Sign In</button>
+					<button className='btn w-full !rounded-lg' onClick={handleSignIn}>
+						Sign In
+					</button>
 					<div className='relative w-full flex justify-center'>
 						<p className='separator'>or</p>
 					</div>

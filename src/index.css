@@ -34,3 +34,31 @@ p.separator {
 .icon-preview {
 	@apply absolute top-2 right-3 text-slate-500 cursor-pointer;
 }
+
+.card {
+	@apply bg-white w-1/4 h-1/3 shadow-lg rounded-lg p-5 flex flex-col justify-center;
+}
+
+.card h1 {
+	@apply font-bold text-gray-700 text-xl;
+}
+
+.card h2 {
+	@apply text-6xl font-bold text-gray-700;
+}
+
+table {
+	@apply shadow-md rounded-md p-3;
+}
+
+table tr {
+	display: grid;
+	grid-template-columns: 1fr 3fr 2fr 1fr 2fr;
+	gap: 2rem;
+	justify-content: start;
+	padding: 0.5rem 1rem;
+}
+
+table tr th {
+	@apply text-start;
+}

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { LuEye } from 'react-icons/lu';
 import { LuEyeOff } from 'react-icons/lu';
-import {  useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
 	const [inputEmail, setInputEmail] = useState('');
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
+	const navigate = useNavigate();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);
@@ -15,23 +17,30 @@ export default function SignUp() {
 	const handleSignUp = () => {
 		if (inputPassword.trim().length <= 8) {
 			console.log('less than 8 char');
+			return;
 		}
 		if (!inputPassword.match(/[a-z]/g)) {
 			console.log('Doesnt contain lowercase');
+			return;
 		}
 		if (!inputPassword.match(/[A-Z]/g)) {
 			console.log('Doesnt contain uppercase');
+			return;
 		}
 		if (!inputPassword.match(/[0-9]/g)) {
 			console.log('Doesnt contain digit number');
+			return;
 		}
 		if (!inputPassword.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g)) {
 			console.log('Doesnt contain spesial character');
+			return;
 		}
 		const data = {
 			email: inputEmail,
 			password: inputPassword,
 		};
+
+		navigate('/dashboard');
 		console.log(data);
 	};
 

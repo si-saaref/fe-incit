@@ -4,6 +4,7 @@ import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import Homepage from './pages/homepage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Dashboard from './pages/dashboard';
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 						{/*! REPORT - CR */}
 						<Route path='/*' element={<Homepage />} />
 						<Route path='/' element={<Homepage />} />
+						<Route path='/dashboard' element={<Dashboard />} />
 						<Route path='/sign-in' element={<SignIn />} />
 						<Route path='/sign-up' element={<SignUp />} />
 					</Routes>
