@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LuEye } from 'react-icons/lu';
 import { LuEyeOff } from 'react-icons/lu';
+import {  useGoogleLogin } from '@react-oauth/google';
 
 export default function SignUp() {
 	const [inputEmail, setInputEmail] = useState('');
@@ -33,6 +34,13 @@ export default function SignUp() {
 		};
 		console.log(data);
 	};
+
+	const login = useGoogleLogin({
+		onSuccess: (tokenResponse) => console.log(tokenResponse),
+		onError: (err) => console.log(err),
+		onNonOAuthError: (err) => console.log(err),
+		flow: 'implicit',
+	});
 
 	return (
 		<div className='flex justify-center items-center h-screen'>
@@ -73,6 +81,15 @@ export default function SignUp() {
 					<div className='relative w-full flex justify-center'>
 						<p className='separator'>or</p>
 					</div>
+					{/* <GoogleLogin
+						onSuccess={(credentialResponse) => {
+							console.log(credentialResponse);
+						}}
+						onError={() => {
+							console.log('Login Failed');
+						}}
+					/> */}
+					<button onClick={() => login()}>Sign in with Google 🚀</button>
 				</div>
 			</div>
 		</div>
