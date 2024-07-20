@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { LuEye } from 'react-icons/lu';
 import { LuEyeOff } from 'react-icons/lu';
-import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
@@ -45,15 +45,23 @@ export default function SignUp() {
 	};
 
 	const login = useGoogleLogin({
-		onSuccess: (tokenResponse) => console.log(tokenResponse),
+		onSuccess: async (tokenResponse) => {
+			console.log(tokenResponse);
+			const resp = await fetch(
+				`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
+			);
+			const response = await resp.json();
+			console.log(response);
+		},
 		onError: (err) => console.log(err),
 		onNonOAuthError: (err) => console.log(err),
+
 		flow: 'implicit',
 	});
 
 	return (
 		<div className='flex justify-center items-center h-screen'>
-			<div className='form-wrapper shadow-md bg-white h-3/5 w-1/4 p-5 rounded-xl flex flex-col'>
+			<div className='form-wrapper shadow-md bg-white h-3/5 min-w-1/4 p-5 rounded-xl flex flex-col'>
 				<h1 className='text-3xl'>Sign Up</h1>
 
 				<div className='content-form-wrapperm flex-1 flex flex-col items-center justify-center gap-3'>
@@ -90,15 +98,21 @@ export default function SignUp() {
 					<div className='relative w-full flex justify-center'>
 						<p className='separator'>or</p>
 					</div>
-					{/* <GoogleLogin
+					<GoogleLogin
 						onSuccess={(credentialResponse) => {
 							console.log(credentialResponse);
+							if (credentialResponse.credential) {
+								navigate('/dashboard');
+							}
 						}}
 						onError={() => {
 							console.log('Login Failed');
 						}}
-					/> */}
-					<button onClick={() => login()}>Sign in with Google 🚀</button>
+						text='signup_with'
+						// ux_mode='redirect'
+						// login_uri='http://localhost:5173/dashboard'
+					/>
+					{/* <button onClick={() => login()}>Sign in with Google 🚀</button> */}
 				</div>
 			</div>
 		</div>
