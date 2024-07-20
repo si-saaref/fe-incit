@@ -1,3 +1,4 @@
+import { GoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { LuEye } from 'react-icons/lu';
 import { LuEyeOff } from 'react-icons/lu';
@@ -62,6 +63,20 @@ export default function SignIn() {
 					<div className='relative w-full flex justify-center'>
 						<p className='separator'>or</p>
 					</div>
+					<GoogleLogin
+						onSuccess={(credentialResponse) => {
+							console.log(credentialResponse);
+							if (credentialResponse.credential) {
+								navigate('/dashboard');
+							}
+						}}
+						onError={() => {
+							console.log('Login Failed');
+						}}
+						text='signin_with'
+						// ux_mode='redirect'
+						// login_uri='http://localhost:5173/dashboard'
+					/>
 				</div>
 			</div>
 		</div>

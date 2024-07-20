@@ -1,7 +1,6 @@
+import { GoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
-import { LuEye } from 'react-icons/lu';
-import { LuEyeOff } from 'react-icons/lu';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { LuEye, LuEyeOff } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
@@ -44,20 +43,20 @@ export default function SignUp() {
 		console.log(data);
 	};
 
-	const login = useGoogleLogin({
-		onSuccess: async (tokenResponse) => {
-			console.log(tokenResponse);
-			const resp = await fetch(
-				`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
-			);
-			const response = await resp.json();
-			console.log(response);
-		},
-		onError: (err) => console.log(err),
-		onNonOAuthError: (err) => console.log(err),
+	// const login = useGoogleLogin({
+	// 	onSuccess: async (tokenResponse) => {
+	// 		console.log(tokenResponse);
+	// 		const resp = await fetch(
+	// 			`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
+	// 		);
+	// 		const response = await resp.json();
+	// 		console.log(response);
+	// 	},
+	// 	onError: (err) => console.log(err),
+	// 	onNonOAuthError: (err) => console.log(err),
 
-		flow: 'implicit',
-	});
+	// 	flow: 'implicit',
+	// });
 
 	return (
 		<div className='flex justify-center items-center h-screen'>
