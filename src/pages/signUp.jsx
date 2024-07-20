@@ -1,6 +1,8 @@
+import FacebookLogin from '@greatsumini/react-facebook-login';
 import { GoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
+import { MdFacebook } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
@@ -110,6 +112,30 @@ export default function SignUp() {
 						text='signup_with'
 						// ux_mode='redirect'
 						// login_uri='http://localhost:5173/dashboard'
+					/>
+					<FacebookLogin
+						appId='2197309287310628'
+						onSuccess={(response) => {
+							console.log('Login Success!', response);
+							if (response.accessToken) {
+								navigate('/dashboard');
+							}
+						}}
+						onFail={(error) => {
+							console.log('Login Failed!', error);
+						}}
+						onProfileSuccess={(response) => {
+							console.log('Get Profile Success!', response);
+						}}
+						render={({ onClick }) => (
+							<div
+								onClick={onClick}
+								className='bg-[#0866EF] w-full h-10 flex gap-3  items-center justify-center px-2 rounded text-md text-white'
+							>
+								<MdFacebook className='text-2xl' />
+								<button>Continue with Facebook</button>
+							</div>
+						)}
 					/>
 					{/* <button onClick={() => login()}>Sign in with Google 🚀</button> */}
 				</div>
