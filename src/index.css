@@ -66,3 +66,19 @@ table tr {
 table tr th {
 	@apply text-start;
 }
+
+ul.dropdown-profile {
+	@apply bg-white rounded-md shadow-xl border-2;
+}
+
+.dropdown-profile li {
+	@apply flex gap-3 flex-nowrap items-center p-2.5 px-5 cursor-pointer;
+}
+
+.dropdown-profile li:hover {
+	@apply bg-gray-100;
+}
+
+.dropdown-profile li p {
+	white-space: nowrap;
+}
