@@ -1,3 +1,4 @@
+import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,9 @@ export default function Dashboard() {
 						className='btn'
 						onClick={() => {
 							googleLogout();
+							FacebookLoginClient.logout(() => {
+								console.log('logout completed!');
+							});
 							navigate('/');
 						}}
 					>
