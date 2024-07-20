@@ -100,6 +100,7 @@ export default function SignUp() {
 						<p className='separator'>or</p>
 					</div>
 					<GoogleLogin
+						width={300}
 						onSuccess={(credentialResponse) => {
 							console.log(credentialResponse);
 							if (credentialResponse.credential) {

@@ -67,6 +67,7 @@ export default function SignIn() {
 					</div>
 					<div className='flex flex-col gap-3'>
 						<GoogleLogin
+							width={300}
 							onSuccess={(credentialResponse) => {
 								console.log(credentialResponse);
 								if (credentialResponse.credential) {
