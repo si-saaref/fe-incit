@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
 import { MdFacebook } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { authSignUp } from '../services';
 
 export default function SignUp() {
 	const [inputEmail, setInputEmail] = useState('');
@@ -15,34 +16,44 @@ export default function SignUp() {
 		setIsShowPassword((prevValue) => !prevValue);
 	};
 
-	const handleSignUp = () => {
-		if (inputPassword.trim().length <= 8) {
-			console.log('less than 8 char');
-			return;
-		}
-		if (!inputPassword.match(/[a-z]/g)) {
-			console.log('Doesnt contain lowercase');
-			return;
-		}
-		if (!inputPassword.match(/[A-Z]/g)) {
-			console.log('Doesnt contain uppercase');
-			return;
-		}
-		if (!inputPassword.match(/[0-9]/g)) {
-			console.log('Doesnt contain digit number');
-			return;
-		}
-		if (!inputPassword.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g)) {
-			console.log('Doesnt contain spesial character');
-			return;
-		}
-		const data = {
-			email: inputEmail,
-			password: inputPassword,
-		};
+	const handleSignUp = async () => {
+		try {
+			if (inputPassword.trim().length <= 8) {
+				console.log('less than 8 char');
+				return;
+			}
+			if (!inputPassword.match(/[a-z]/g)) {
+				console.log('Doesnt contain lowercase');
+				return;
+			}
+			if (!inputPassword.match(/[A-Z]/g)) {
+				console.log('Doesnt contain uppercase');
+				return;
+			}
+			if (!inputPassword.match(/[0-9]/g)) {
+				console.log('Doesnt contain digit number');
+				return;
+			}
+			if (!inputPassword.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g)) {
+				console.log('Doesnt contain spesial character');
+				return;
+			}
+			const data = {
+				email: inputEmail,
+				password: inputPassword,
+			};
 
-		navigate('/dashboard');
-		console.log(data);
+			const response = await authSignUp(data);
+
+			console.log(response);
+
+			if (response.status !== 201) {
+				throw Error('Failed Sign Up');
+			}
+			navigate('/dashboard');
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	// const login = useGoogleLogin({
@@ -93,7 +104,17 @@ export default function SignUp() {
 							<LuEyeOff className='icon-preview' onClick={handleClickPreviewPassword} />
 						)}
 					</div>
-					<button className='btn w-full !rounded-lg' onClick={handleSignUp}>
+					<p className='self-start text-xs'>
+						Already have an account? Let&apos;s
+						<a href='/sign-in' className='text-blue-500 underline ml-1'>
+							Sign In
+						</a>
+					</p>
+					<button
+						className='btn w-full !rounded-lg'
+						onClick={handleSignUp}
+						disabled={!(inputEmail && inputPassword)}
+					>
 						Sign Up
 					</button>
 					<div className='relative w-full flex justify-center'>

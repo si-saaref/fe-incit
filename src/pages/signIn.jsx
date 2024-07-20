@@ -5,6 +5,7 @@ import { LuEyeOff } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { MdFacebook } from 'react-icons/md';
+import { authSignIn } from '../services';
 
 export default function SignIn() {
 	const [inputEmail, setInputEmail] = useState('');
@@ -16,14 +17,20 @@ export default function SignIn() {
 		setIsShowPassword((prevValue) => !prevValue);
 	};
 
-	const handleSignIn = () => {
-		const data = {
-			email: inputEmail,
-			password: inputPassword,
-		};
-		console.log(data);
-
-		navigate('/dashboard');
+	const handleSignIn = async () => {
+		try {
+			const data = {
+				email: inputEmail,
+				password: inputPassword,
+			};
+			const response = await authSignIn(data);
+			if (response.status !== 200) {
+				throw Error(response.message);
+			}
+			navigate('/dashboard');
+		} catch (error) {
+			console.log(error.message);
+		}
 	};
 
 	return (
@@ -59,7 +66,17 @@ export default function SignIn() {
 							<LuEyeOff className='icon-preview' onClick={handleClickPreviewPassword} />
 						)}
 					</div>
-					<button className='btn w-full !rounded-lg' onClick={handleSignIn}>
+					<p className='self-start text-xs'>
+						Don&apos;t Have any account?{' '}
+						<a href='/sign-up' className='text-blue-500 underline'>
+							Sign Up
+						</a>
+					</p>
+					<button
+						className='btn w-full !rounded-lg'
+						onClick={handleSignIn}
+						disabled={!(inputEmail && inputPassword)}
+					>
 						Sign In
 					</button>
 					<div className='relative w-full flex justify-center'>

@@ -1,6 +1,7 @@
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
+import { authSignOut } from '../services';
 
 export default function Dashboard() {
 	const navigate = useNavigate();
@@ -10,7 +11,8 @@ export default function Dashboard() {
 				<div className='flex gap-5'>
 					<button
 						className='btn'
-						onClick={() => {
+						onClick={async () => {
+							await authSignOut();
 							googleLogout();
 							FacebookLoginClient.logout(() => {
 								console.log('logout completed!');
