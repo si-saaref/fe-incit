@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+p {
+	white-space: nowrap;
+}
+
 body {
 	@apply bg-gray-200;
+}
+
+#root {
+	@apply min-h-screen;
 }
 
 .btn {
@@ -81,4 +89,12 @@ ul.dropdown-profile {
 
 .dropdown-profile li p {
 	white-space: nowrap;
+}
+
+.page-wrapper {
+	@apply bg-white p-10 rounded-lg min-h-[600px] flex flex-col gap-14 w-[80%] m-auto;
+}
+
+.page-wrapper > h1 {
+	@apply text-xl;
 }

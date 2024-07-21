@@ -30,7 +30,11 @@ export default function Dashboard() {
 								isShowDropdown ? 'block' : 'hidden'
 							}`}
 						>
-							<li>
+							<li
+								onClick={async () => {
+									navigate('/my-profile');
+								}}
+							>
 								<FiUser />
 								<p>My Profile</p>
 							</li>
@@ -51,7 +55,7 @@ export default function Dashboard() {
 					</div>
 				</div>
 			</header>
-			<main className='h-full p-14 flex flex-col gap-10'>
+			<main className='page-wrapper'>
 				<div className='summary-wrapper flex justify-between'>
 					<div className='card'>
 						<h1>Signed Up Users</h1>
