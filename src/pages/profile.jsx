@@ -1,7 +1,7 @@
 import { FaUserCircle } from 'react-icons/fa';
 import { useUser } from '../hook/useUser';
 import { useState } from 'react';
-import { apiEditUser } from '../services';
+import { apiEditPassword, apiEditUser } from '../services';
 
 export default function Profile() {
 	const { user, editUser } = useUser();
@@ -26,6 +26,29 @@ export default function Profile() {
 				throw Error(response.message);
 			}
 			editUser(data);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+	const handleChangePassword = async () => {
+		try {
+			const newPassword = inputNewPassword.toLowerCase().trim();
+			const checkPassword = inputCheckPassword.toLowerCase().trim();
+
+			if (newPassword !== checkPassword) {
+				alert('Confirmation password is incorrect. Please check again');
+			}
+
+			const data = {
+				oldPassword: inputOldPassword.trim(),
+				newPassword: inputNewPassword,
+			};
+			const response = await apiEditPassword(data);
+
+			if (response.code !== 200) {
+				throw Error(response.message);
+			}
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -90,10 +113,10 @@ export default function Profile() {
 						<div className='input-wrapper flex gap-2'>
 							<p>Old Password :</p>
 							<input
-								type='text'
+								type='password'
 								name='oldPassword'
 								id='oldPassword'
-								className='input text-gray-400 cursor-not-allowed'
+								className='input'
 								autoComplete='off'
 								value={inputOldPassword}
 								onChange={(e) => {
@@ -104,7 +127,7 @@ export default function Profile() {
 						<div className='input-wrapper flex gap-2'>
 							<p>New Password :</p>
 							<input
-								type='text'
+								type='password'
 								name='newPassword'
 								id='newPassword'
 								className='input'
@@ -118,7 +141,7 @@ export default function Profile() {
 						<div className='input-wrapper flex gap-2'>
 							<p>Confirm Password :</p>
 							<input
-								type='text'
+								type='password'
 								name='checkPassword'
 								id='checkPassword'
 								className='input'
@@ -131,8 +154,8 @@ export default function Profile() {
 						</div>
 						<button
 							className='btn !rounded-md'
-							onClick={handleChangeUserInformation}
-							disabled={inputName === user?.name}
+							onClick={handleChangePassword}
+							disabled={!(inputOldPassword && inputCheckPassword && inputNewPassword)}
 						>
 							Save changes
 						</button>
