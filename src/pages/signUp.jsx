@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
 import { MdFacebook } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { authSignUp } from '../services';
+import { apiAuthSignUp } from '../services';
 // import { useUser } from '../hook/useUser';
 
 export default function SignUp() {
@@ -45,7 +45,7 @@ export default function SignUp() {
 				password: inputPassword,
 			};
 
-			const response = await authSignUp(data);
+			const response = await apiAuthSignUp(data);
 
 			console.log(response);
 

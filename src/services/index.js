@@ -1,6 +1,8 @@
+import Cookies from 'js-cookie';
+
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-export const authSignUp = async (data) => {
+export const apiAuthSignUp = async (data) => {
 	const respJson = await fetch(`${baseURL}/auth/sign-up`, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -12,7 +14,7 @@ export const authSignUp = async (data) => {
 	return respJson.json();
 };
 
-export const authSignIn = async (data) => {
+export const apiAuthSignIn = async (data) => {
 	const respJson = await fetch(`${baseURL}/auth/sign-in`, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -24,7 +26,7 @@ export const authSignIn = async (data) => {
 	return respJson.json();
 };
 
-export const authSignOut = async () => {
+export const apiAuthSignOut = async () => {
 	const data = {
 		email: 'testing@gmail.com',
 	};
@@ -39,16 +41,32 @@ export const authSignOut = async () => {
 	return respJson.json();
 };
 
-export const editUser = async (data) => {
-	const payload = {
-		...data,
-		email: 'testing@gmail.com',
-	};
+export const apiEditUser = async (data) => {
+	const tokenUser = Cookies.get('tokenUser') ?? '';
+	const token = Buffer.from(tokenUser, 'base64').toString('');
+
 	const respJson = await fetch(`${baseURL}/auth/edit-user`, {
 		method: 'PUT',
-		body: JSON.stringify(payload),
+		body: JSON.stringify(data),
 		headers: {
 			'Content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	});
+
+	return respJson.json();
+};
+
+export const apiEditPassword = async (data) => {
+	const tokenUser = Cookies.get('tokenUser') ?? '';
+	const token = Buffer.from(tokenUser, 'base64').toString('');
+
+	const respJson = await fetch(`${baseURL}/auth/edit-password`, {
+		method: 'PUT',
+		body: JSON.stringify(data),
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
 		},
 	});
 

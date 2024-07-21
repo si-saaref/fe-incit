@@ -5,7 +5,7 @@ import { LuEyeOff } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { MdFacebook } from 'react-icons/md';
-import { authSignIn } from '../services';
+import { apiAuthSignIn } from '../services';
 import { useUser } from '../hook/useUser';
 
 export default function SignIn() {
@@ -25,7 +25,7 @@ export default function SignIn() {
 				email: inputEmail,
 				password: inputPassword,
 			};
-			const response = await authSignIn(data);
+			const response = await apiAuthSignIn(data);
 			if (response.status !== 200) {
 				throw Error(response.message);
 			}

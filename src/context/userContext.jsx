@@ -60,6 +60,19 @@ export default function UserContextProvider({ children }) {
 		}
 	};
 
+	const editUser = (data) => {
+		Cookies.remove('userData');
+		setUser({
+			...user,
+			name: data?.name,
+		});
+		const userData = {
+			...user,
+			name: data?.name,
+		};
+		Cookies.set('userData', JSON.stringify(userData));
+	};
+
 	const logoutUser = () => {
 		Cookies.remove('tokenUser');
 		Cookies.remove('userData');
@@ -67,7 +80,7 @@ export default function UserContextProvider({ children }) {
 	};
 
 	return (
-		<UserContext.Provider value={{ user, setUser, loginUser, logoutUser }}>
+		<UserContext.Provider value={{ user, setUser, loginUser, logoutUser, editUser }}>
 			{children}
 		</UserContext.Provider>
 	);

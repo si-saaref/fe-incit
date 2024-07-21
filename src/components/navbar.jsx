@@ -1,6 +1,6 @@
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import { googleLogout } from '@react-oauth/google';
-import { authSignOut } from '../services';
+import { apiAuthSignOut } from '../services';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { FaUserCircle } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
@@ -54,7 +54,7 @@ export default function Navbar() {
 							</li>
 							<li
 								onClick={async () => {
-									await authSignOut();
+									await apiAuthSignOut();
 									googleLogout();
 									FacebookLoginClient.logout(() => {
 										console.log('logout completed!');

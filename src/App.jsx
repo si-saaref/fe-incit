@@ -16,7 +16,7 @@ function App() {
 				<UserContextProvider>
 					<Router>
 						<Navbar />
-						<main>
+						<main className='py-10'>
 							<Routes>
 								{/*! REPORT - CR */}
 								<Route path='/*' element={<Homepage />} />

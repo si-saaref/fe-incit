@@ -1,11 +1,14 @@
 import { FaUserCircle } from 'react-icons/fa';
 import { useUser } from '../hook/useUser';
 import { useState } from 'react';
-import { editUser } from '../services';
+import { apiEditUser } from '../services';
 
 export default function Profile() {
-	const { user } = useUser();
+	const { user, editUser } = useUser();
 	const [inputName, setInputName] = useState(user?.name ?? '');
+	const [inputOldPassword, setInputOldPassword] = useState('');
+	const [inputNewPassword, setInputNewPassword] = useState('');
+	const [inputCheckPassword, setInputCheckPassword] = useState('');
 
 	const handleChangeUserInformation = async () => {
 		try {
@@ -17,62 +20,125 @@ export default function Profile() {
 				name: inputName,
 			};
 
-			const response = await editUser(data);
+			const response = await apiEditUser(data);
 
 			if (response.code !== 200) {
 				throw Error(response.message);
 			}
+			editUser(data);
 		} catch (error) {
 			console.log(error.message);
 		}
 	};
 
 	return (
-		<main className='page-wrapper'>
-			<h1>My Profile</h1>
-			<div className='content-wrapper flex gap-10'>
-				<div className='photo-wrapper'>
-					<div className='shadow-lg w-36 h-52 rounded-md border-2 bg-gray-300 flex justify-center items-center'>
-						{user?.picture ? (
-							<img src={user?.picture} alt='' />
-						) : (
-							<FaUserCircle className='text-6xl text-gray-500' />
-						)}
+		<>
+			<main className='page-wrapper !min-h-fit'>
+				<h1>My Profile</h1>
+				<div className='content-wrapper flex gap-10'>
+					<div className='photo-wrapper'>
+						<div className='shadow-lg w-36 h-52 rounded-md border-2 bg-gray-300 flex justify-center items-center'>
+							{user?.picture ? (
+								<img src={user?.picture} alt='' />
+							) : (
+								<FaUserCircle className='text-6xl text-gray-500' />
+							)}
+						</div>
+					</div>
+					<div className='information-wrapper flex flex-col gap-5 items-start flex-1'>
+						<div className='input-wrapper flex gap-2'>
+							<p>Email :</p>
+							<input
+								type='text'
+								name='email'
+								id='email'
+								className='input text-gray-400 cursor-not-allowed'
+								autoComplete='off'
+								value={user?.email ?? ''}
+								disabled
+							/>
+						</div>
+						<div className='input-wrapper flex gap-2'>
+							<p>Name :</p>
+							<input
+								type='text'
+								name='name'
+								id='name'
+								className='input'
+								autoComplete='off'
+								placeholder={user?.name ?? ''}
+								value={inputName}
+								onChange={(e) => {
+									setInputName(e.target.value);
+								}}
+							/>
+						</div>
+						<button
+							className='btn !rounded-md'
+							onClick={handleChangeUserInformation}
+							disabled={inputName === user?.name}
+						>
+							Save changes
+						</button>
 					</div>
 				</div>
-				<div className='information-wrapper flex flex-col gap-5 items-start flex-1'>
-					<div className='input-wrapper flex gap-2'>
-						<p>Email :</p>
-						<input
-							type='text'
-							name='email'
-							id='email'
-							className='input text-gray-400 cursor-not-allowed'
-							autoComplete='off'
-							value={user?.email ?? ''}
-							disabled
-						/>
+			</main>
+			<main className='page-wrapper !min-h-fit'>
+				<h1>Change Password</h1>
+				<div className='content-wrapper flex gap-10'>
+					<div className='information-wrapper flex flex-col gap-5 items-start flex-1'>
+						<div className='input-wrapper flex gap-2'>
+							<p>Old Password :</p>
+							<input
+								type='text'
+								name='oldPassword'
+								id='oldPassword'
+								className='input text-gray-400 cursor-not-allowed'
+								autoComplete='off'
+								value={inputOldPassword}
+								onChange={(e) => {
+									setInputOldPassword(e.target.value);
+								}}
+							/>
+						</div>
+						<div className='input-wrapper flex gap-2'>
+							<p>New Password :</p>
+							<input
+								type='text'
+								name='newPassword'
+								id='newPassword'
+								className='input'
+								autoComplete='off'
+								value={inputNewPassword}
+								onChange={(e) => {
+									setInputNewPassword(e.target.value);
+								}}
+							/>
+						</div>
+						<div className='input-wrapper flex gap-2'>
+							<p>Confirm Password :</p>
+							<input
+								type='text'
+								name='checkPassword'
+								id='checkPassword'
+								className='input'
+								autoComplete='off'
+								value={inputCheckPassword}
+								onChange={(e) => {
+									setInputCheckPassword(e.target.value);
+								}}
+							/>
+						</div>
+						<button
+							className='btn !rounded-md'
+							onClick={handleChangeUserInformation}
+							disabled={inputName === user?.name}
+						>
+							Save changes
+						</button>
 					</div>
-					<div className='input-wrapper flex gap-2'>
-						<p>Name :</p>
-						<input
-							type='text'
-							name='name'
-							id='name'
-							className='input'
-							autoComplete='off'
-							placeholder={user?.name ?? ''}
-							value={inputName}
-							onChange={(e) => {
-								setInputName(e.target.value);
-							}}
-						/>
-					</div>
-					<button className='btn !rounded-md' onClick={handleChangeUserInformation}>
-						Save changes
-					</button>
 				</div>
-			</div>
-		</main>
+			</main>
+		</>
 	);
 }
