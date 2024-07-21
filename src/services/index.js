@@ -72,3 +72,33 @@ export const apiEditPassword = async (data) => {
 
 	return respJson.json();
 };
+
+export const apiGetDashboardSummaryData = async () => {
+	const tokenUser = Cookies.get('tokenUser') ?? '';
+	const token = Buffer.from(tokenUser, 'base64').toString('');
+
+	const respJson = await fetch(`${baseURL}/dashboard/summary`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	});
+
+	return respJson.json();
+};
+
+export const apiGetDashboardTableData = async () => {
+	const tokenUser = Cookies.get('tokenUser') ?? '';
+	const token = Buffer.from(tokenUser, 'base64').toString('');
+
+	const respJson = await fetch(`${baseURL}/dashboard/list-user`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	});
+
+	return respJson.json();
+};

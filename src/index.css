@@ -48,7 +48,7 @@ p.separator {
 }
 
 .card {
-	@apply bg-white w-1/4 h-1/3 shadow-lg rounded-lg p-5 flex flex-col justify-center;
+	@apply border bg-white w-1/4 h-44 shadow-lg rounded-lg p-5 flex flex-col justify-between;
 }
 
 .card h1 {
@@ -60,7 +60,7 @@ p.separator {
 }
 
 table {
-	@apply shadow-md rounded-md p-3;
+	@apply shadow-md rounded-md p-3 border;
 }
 
 table tr {
