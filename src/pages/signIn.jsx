@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { MdFacebook } from 'react-icons/md';
 import { authSignIn } from '../services';
+import { useUser } from '../hook/useUser';
 
 export default function SignIn() {
 	const [inputEmail, setInputEmail] = useState('');
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
 	const navigate = useNavigate();
+	const { setUser } = useUser();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);
@@ -28,6 +30,7 @@ export default function SignIn() {
 				throw Error(response.message);
 			}
 			navigate('/dashboard');
+			setUser(response);
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -89,6 +92,7 @@ export default function SignIn() {
 								console.log(credentialResponse);
 								if (credentialResponse.credential) {
 									navigate('/dashboard');
+									setUser(credentialResponse);
 								}
 							}}
 							onError={() => {
@@ -104,6 +108,7 @@ export default function SignIn() {
 								console.log('Login Success!', response);
 								if (response.accessToken) {
 									navigate('/dashboard');
+									setUser(response);
 								}
 							}}
 							onFail={(error) => {

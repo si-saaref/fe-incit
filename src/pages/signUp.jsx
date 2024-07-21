@@ -5,12 +5,14 @@ import { LuEye, LuEyeOff } from 'react-icons/lu';
 import { MdFacebook } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { authSignUp } from '../services';
+// import { useUser } from '../hook/useUser';
 
 export default function SignUp() {
 	const [inputEmail, setInputEmail] = useState('');
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
 	const navigate = useNavigate();
+	// const { setUser } = useUser();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);
