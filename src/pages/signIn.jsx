@@ -13,7 +13,7 @@ export default function SignIn() {
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
 	const navigate = useNavigate();
-	const { setUser, loginUser } = useUser();
+	const { loginUser } = useUser();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);

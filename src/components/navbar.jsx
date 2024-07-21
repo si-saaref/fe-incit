@@ -16,7 +16,19 @@ export default function Navbar() {
 
 	return (
 		<header className='flex justify-end p-5 px-12 shadow-md bg-white sticky'>
-			<div className='flex gap-5'>
+			<div className='flex gap-5 justify-end w-full navbar items-center'>
+				{user && (
+					<ul className='flex-1'>
+						<li
+							className='item'
+							onClick={() => {
+								navigate('/dashboard');
+							}}
+						>
+							Dashboard
+						</li>
+					</ul>
+				)}
 				{user ? (
 					<div
 						className='relative icon-profile-wrapper flex items-center gap-1 cursor-pointer'

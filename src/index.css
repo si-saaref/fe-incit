@@ -98,3 +98,7 @@ ul.dropdown-profile {
 .page-wrapper > h1 {
 	@apply text-xl;
 }
+
+.navbar .item {
+	@apply cursor-pointer;
+}

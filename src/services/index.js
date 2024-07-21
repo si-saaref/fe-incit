@@ -39,13 +39,13 @@ export const authSignOut = async () => {
 	return respJson.json();
 };
 
-export const editUser = async ({ data }) => {
+export const editUser = async (data) => {
 	const payload = {
 		...data,
 		email: 'testing@gmail.com',
 	};
-	const respJson = await fetch(`${baseURL}/auth/sign-out`, {
-		method: 'POST',
+	const respJson = await fetch(`${baseURL}/auth/edit-user`, {
+		method: 'PUT',
 		body: JSON.stringify(payload),
 		headers: {
 			'Content-type': 'application/json',
