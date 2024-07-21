@@ -13,7 +13,7 @@ export default function SignIn() {
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
 	const navigate = useNavigate();
-	const { setUser } = useUser();
+	const { setUser, loginUser } = useUser();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);
@@ -30,7 +30,7 @@ export default function SignIn() {
 				throw Error(response.message);
 			}
 			navigate('/dashboard');
-			setUser(response);
+			loginUser('manually', response.data);
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -89,10 +89,9 @@ export default function SignIn() {
 						<GoogleLogin
 							width={300}
 							onSuccess={(credentialResponse) => {
-								console.log(credentialResponse);
 								if (credentialResponse.credential) {
 									navigate('/dashboard');
-									setUser(credentialResponse);
+									loginUser('google', credentialResponse);
 								}
 							}}
 							onError={() => {
@@ -103,19 +102,15 @@ export default function SignIn() {
 							// login_uri='http://localhost:5173/dashboard'
 						/>
 						<FacebookLogin
-							appId='2197309287310628'
-							onSuccess={(response) => {
-								console.log('Login Success!', response);
+							appId={import.meta.env.VITE_FB_APP_ID}
+							onSuccess={async (response) => {
 								if (response.accessToken) {
 									navigate('/dashboard');
-									setUser(response);
+									loginUser('facebook', response);
 								}
 							}}
 							onFail={(error) => {
 								console.log('Login Failed!', error);
-							}}
-							onProfileSuccess={(response) => {
-								console.log('Get Profile Success!', response);
 							}}
 							render={({ onClick }) => (
 								<div

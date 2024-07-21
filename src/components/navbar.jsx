@@ -12,7 +12,7 @@ import { useUser } from '../hook/useUser';
 export default function Navbar() {
 	const navigate = useNavigate();
 	const [isShowDropdown, setIsShowDropdown] = useState(false);
-	const { user, setUser } = useUser();
+	const { user, logoutUser } = useUser();
 
 	return (
 		<header className='flex justify-end p-5 px-12 shadow-md bg-white sticky'>
@@ -48,7 +48,7 @@ export default function Navbar() {
 										console.log('logout completed!');
 									});
 									navigate('/');
-									setUser(null);
+									logoutUser();
 								}}
 							>
 								<IoLogOutOutline className='text-red-600' />

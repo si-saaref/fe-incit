@@ -38,3 +38,19 @@ export const authSignOut = async () => {
 
 	return respJson.json();
 };
+
+export const editUser = async ({ data }) => {
+	const payload = {
+		...data,
+		email: 'testing@gmail.com',
+	};
+	const respJson = await fetch(`${baseURL}/auth/sign-out`, {
+		method: 'POST',
+		body: JSON.stringify(payload),
+		headers: {
+			'Content-type': 'application/json',
+		},
+	});
+
+	return respJson.json();
+};

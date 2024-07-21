@@ -1,6 +1,8 @@
 import { FaUserCircle } from 'react-icons/fa';
+// import { useUser } from '../hook/useUser';
 
 export default function Profile() {
+	// const { user } = useUser();
 	return (
 		<main className='page-wrapper'>
 			<h1>My Profile</h1>
