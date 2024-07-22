@@ -103,3 +103,18 @@ export const apiGetDashboardTableData = async () => {
 
 	return respJson.json();
 };
+
+export const apiGetDetailUserData = async () => {
+	const tokenUser = Cookies.get('tokenUser') ?? '';
+	const token = Buffer.from(tokenUser, 'base64').toString('');
+
+	const respJson = await fetch(`${baseURL}/auth/`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	});
+
+	return respJson.json();
+};

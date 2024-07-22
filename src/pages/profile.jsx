@@ -1,7 +1,7 @@
 import { FaUserCircle } from 'react-icons/fa';
 import { useUser } from '../hook/useUser';
-import { useState } from 'react';
-import { apiEditPassword, apiEditUser } from '../services';
+import { useCallback, useEffect, useState } from 'react';
+import { apiEditPassword, apiEditUser, apiGetDetailUserData } from '../services';
 import toast from 'react-hot-toast';
 import { passwordChecker } from '../utils';
 
@@ -11,6 +11,16 @@ export default function Profile() {
 	const [inputOldPassword, setInputOldPassword] = useState('');
 	const [inputNewPassword, setInputNewPassword] = useState('');
 	const [inputCheckPassword, setInputCheckPassword] = useState('');
+
+	const fetchGetDetailUser = useCallback(async () => {
+		const response = await apiGetDetailUserData();
+
+		setInputName(response.data.name);
+	}, []);
+
+	useEffect(() => {
+		fetchGetDetailUser();
+	}, [fetchGetDetailUser]);
 
 	const handleChangeUserInformation = async () => {
 		try {
