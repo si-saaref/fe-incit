@@ -18,7 +18,7 @@ body {
 	@apply border border-slate-500 rounded-full px-4 py-1 bg-[#1BACB0] text-white duration-300;
 }
 
-.btn:hover {
+.btn:not(:disabled):hover {
 	transform: translateY(-2px);
 	@apply shadow-lg;
 }
@@ -74,7 +74,7 @@ p.separator {
 }
 
 table {
-	@apply shadow-md rounded-md p-3 border;
+	@apply shadow-md rounded-md p-3;
 }
 
 table tr {
@@ -106,7 +106,7 @@ ul.dropdown-profile {
 }
 
 .page-wrapper {
-	@apply bg-white p-10 rounded-lg min-h-[600px] flex flex-col gap-14 w-[80%] m-auto mt-10;
+	@apply bg-white p-10 rounded-lg min-h-[600px] flex flex-col gap-14 w-[80%] m-auto;
 }
 
 .page-wrapper > h1 {
@@ -114,5 +114,37 @@ ul.dropdown-profile {
 }
 
 .navbar .item {
-	@apply cursor-pointer;
+	@apply text-lg cursor-pointer w-fit font-semibold text-gray-500 duration-300;
+}
+
+.navbar .item:hover {
+	@apply text-black drop-shadow-md;
+}
+
+h1.title-page {
+	font-weight: 600;
+	font-size: 2rem;
+	line-height: 60px;
+	border-bottom: 1px solid rgb(194, 196, 199);
+}
+
+.input-grid {
+	display: grid;
+	grid-template-columns: 1.5fr 2fr;
+}
+
+.input-grid-1 {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+}
+
+.table-wrapper::-webkit-scrollbar {
+	height: 5px;
+	width: 4px;
+	background: rgb(236, 236, 236);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+	background: #b6b6b6;
+	border-radius: 10px;
 }

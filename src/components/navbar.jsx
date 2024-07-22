@@ -17,11 +17,19 @@ export default function Navbar() {
 
 	return (
 		<header
-			className={`flex justify-end p-5 px-12 shadow-md bg-white sticky ${
+			className={`flex justify-end p-5 px-12 shadow-md bg-white sticky top-0 ${
 				pathname === '/sign-up' || pathname === '/sign-in' ? 'hidden' : ''
 			}`}
 		>
-			<div className='flex gap-5 justify-end w-full navbar items-center'>
+			<div className='flex gap-10 justify-end w-full navbar items-center'>
+				<img
+					onClick={() => {
+						navigate('/dashboard');
+					}}
+					src='https://incit.org/wp-content/uploads/2024/07/incit-logo-new-footer.png'
+					className='w-28 cursor-pointer'
+					alt=''
+				/>
 				{user && (
 					<ul className='flex-1'>
 						<li

@@ -76,7 +76,7 @@ export default function Profile() {
 	return (
 		<>
 			<main className='page-wrapper !min-h-fit'>
-				<h1>My Profile</h1>
+				<h1 className='title-page'>My Profile</h1>
 				<div className='content-wrapper flex gap-10'>
 					<div className='photo-wrapper'>
 						<div className='shadow-lg w-36 h-52 rounded-md border-2 bg-gray-300 flex justify-center items-center'>
@@ -87,33 +87,35 @@ export default function Profile() {
 							)}
 						</div>
 					</div>
-					<div className='information-wrapper flex flex-col gap-5 items-start flex-1'>
-						<div className='input-wrapper flex gap-2'>
-							<p>Email :</p>
-							<input
-								type='text'
-								name='email'
-								id='email'
-								className='input text-gray-400 cursor-not-allowed'
-								autoComplete='off'
-								value={user?.email ?? ''}
-								disabled
-							/>
-						</div>
-						<div className='input-wrapper flex gap-2'>
-							<p>Name :</p>
-							<input
-								type='text'
-								name='name'
-								id='name'
-								className='input'
-								autoComplete='off'
-								placeholder={user?.name ?? ''}
-								value={inputName}
-								onChange={(e) => {
-									setInputName(e.target.value);
-								}}
-							/>
+					<div className='information-wrapper flex flex-col gap-5 items-start justify-between flex-1'>
+						<div className='flex flex-col gap-5'>
+							<div className='input-wrapper flex gap-2 input-grid-1 items-center'>
+								<p>Email :</p>
+								<input
+									type='text'
+									name='email'
+									id='email'
+									className='input text-gray-400 cursor-not-allowed'
+									autoComplete='off'
+									value={user?.email ?? ''}
+									disabled
+								/>
+							</div>
+							<div className='input-wrapper flex gap-2 input-grid-1 items-center'>
+								<p>Name :</p>
+								<input
+									type='text'
+									name='name'
+									id='name'
+									className='input'
+									autoComplete='off'
+									placeholder={user?.name ?? ''}
+									value={inputName}
+									onChange={(e) => {
+										setInputName(e.target.value);
+									}}
+								/>
+							</div>
 						</div>
 						<button
 							className='btn !rounded-md'
@@ -126,10 +128,10 @@ export default function Profile() {
 				</div>
 			</main>
 			<main className='page-wrapper !min-h-fit'>
-				<h1>Change Password</h1>
+				<h1 className='title-page'>Password</h1>
 				<div className='content-wrapper flex gap-10'>
 					<div className='information-wrapper flex flex-col gap-5 items-start flex-1'>
-						<div className='input-wrapper flex gap-2'>
+						<div className='input-wrapper flex gap-2 input-grid items-center'>
 							<p>Old Password :</p>
 							<input
 								type='password'
@@ -143,7 +145,7 @@ export default function Profile() {
 								}}
 							/>
 						</div>
-						<div className='input-wrapper flex gap-2'>
+						<div className='input-wrapper flex gap-2 input-grid items-center'>
 							<p>New Password :</p>
 							<input
 								type='password'
@@ -157,7 +159,7 @@ export default function Profile() {
 								}}
 							/>
 						</div>
-						<div className='input-wrapper flex gap-2'>
+						<div className='input-wrapper flex gap-2 input-grid items-center'>
 							<p>Confirm Password :</p>
 							<input
 								type='password'
