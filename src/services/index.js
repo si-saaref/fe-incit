@@ -46,7 +46,7 @@ export const apiEditUser = async (data) => {
 	const tokenUser = Cookies.get('tokenUser') ?? '';
 	const token = Buffer.from(tokenUser, 'base64').toString('');
 
-	const respJson = await fetch(`${baseURL}/auth/edit-user`, {
+	const respJson = await fetch(`${baseURL}/user/edit-user`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
@@ -62,7 +62,7 @@ export const apiEditPassword = async (data) => {
 	const tokenUser = Cookies.get('tokenUser') ?? '';
 	const token = Buffer.from(tokenUser, 'base64').toString('');
 
-	const respJson = await fetch(`${baseURL}/auth/edit-password`, {
+	const respJson = await fetch(`${baseURL}/user/edit-password`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
@@ -108,7 +108,7 @@ export const apiGetDetailUserData = async () => {
 	const tokenUser = Cookies.get('tokenUser') ?? '';
 	const token = Buffer.from(tokenUser, 'base64').toString('');
 
-	const respJson = await fetch(`${baseURL}/auth/`, {
+	const respJson = await fetch(`${baseURL}/user/`, {
 		method: 'GET',
 		headers: {
 			'Content-type': 'application/json',

@@ -34,7 +34,7 @@ export default function Profile() {
 
 			const response = await apiEditUser(data);
 
-			if (response.code !== 200) {
+			if (response.status !== 200) {
 				throw Error(response.message);
 			} else {
 				toast.success('Your changes have been successfully updated');
@@ -62,10 +62,13 @@ export default function Profile() {
 				};
 				const response = await apiEditPassword(data);
 
-				if (response.code !== 200) {
+				if (response.status !== 200) {
 					throw Error(response.message);
 				} else {
 					toast.success('Your changes have been successfully updated');
+					setInputCheckPassword('');
+					setInputNewPassword('');
+					setInputOldPassword('');
 				}
 			}
 		} catch (error) {
