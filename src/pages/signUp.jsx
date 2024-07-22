@@ -6,6 +6,7 @@ import { MdFacebook } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { apiAuthSignUp } from '../services';
 import toast from 'react-hot-toast';
+import { passwordChecker } from '../utils';
 // import { useUser } from '../hook/useUser';
 
 export default function SignUp() {
@@ -21,34 +22,22 @@ export default function SignUp() {
 
 	const handleSignUp = async () => {
 		try {
-			if (inputPassword.trim().length <= 8) {
-				throw Error('Your password is less than 8 char');
-			}
-			if (!inputPassword.match(/[a-z]/g)) {
-				throw Error("Your password doesn't contain lowercase letter");
-			}
-			if (!inputPassword.match(/[A-Z]/g)) {
-				throw Error("Your password doesn't contain uppercase letter");
-			}
-			if (!inputPassword.match(/[0-9]/g)) {
-				throw Error("Your password doesn't contain digit number");
-			}
-			if (!inputPassword.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g)) {
-				throw Error("Your password doesn't contain spesial character");
-			}
-			const data = {
-				email: inputEmail,
-				password: inputPassword,
-			};
+			const validatedPassword = passwordChecker(inputPassword);
+			if (validatedPassword) {
+				const data = {
+					email: inputEmail,
+					password: inputPassword,
+				};
 
-			const response = await apiAuthSignUp(data);
+				const response = await apiAuthSignUp(data);
 
-			console.log(response);
+				console.log(response);
 
-			if (response.status !== 201) {
-				throw Error('Failed Sign Up');
+				if (response.status !== 201) {
+					throw Error('Failed Sign Up');
+				}
+				navigate('/verification');
 			}
-			navigate('/verification');
 		} catch (error) {
 			toast.error(error.message);
 			console.log(error.message);

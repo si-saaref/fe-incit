@@ -3,6 +3,7 @@ import { useUser } from '../hook/useUser';
 import { useState } from 'react';
 import { apiEditPassword, apiEditUser } from '../services';
 import toast from 'react-hot-toast';
+import { passwordChecker } from '../utils';
 
 export default function Profile() {
 	const { user, editUser } = useUser();
@@ -25,6 +26,8 @@ export default function Profile() {
 
 			if (response.code !== 200) {
 				throw Error(response.message);
+			} else {
+				toast.success('Your changes have been successfully updated');
 			}
 			editUser(data);
 		} catch (error) {
@@ -41,14 +44,19 @@ export default function Profile() {
 				throw Error('Confirmation password is incorrect. Please check again');
 			}
 
-			const data = {
-				oldPassword: inputOldPassword.trim(),
-				newPassword: inputNewPassword,
-			};
-			const response = await apiEditPassword(data);
+			const validatedPassword = passwordChecker(inputNewPassword);
+			if (validatedPassword) {
+				const data = {
+					oldPassword: inputOldPassword.trim(),
+					newPassword: inputNewPassword,
+				};
+				const response = await apiEditPassword(data);
 
-			if (response.code !== 200) {
-				throw Error(response.message);
+				if (response.code !== 200) {
+					throw Error(response.message);
+				} else {
+					toast.success('Your changes have been successfully updated');
+				}
 			}
 		} catch (error) {
 			toast.error(error.message);
