@@ -10,6 +10,7 @@ import NotFound from './pages/notFound';
 import Profile from './pages/profile';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 			<GoogleOAuthProvider clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}>
 				<UserContextProvider>
 					<RouterProvider router={router} />
+					<Toaster />
 					{/* <Router>
 						<Navbar />
 						<main>

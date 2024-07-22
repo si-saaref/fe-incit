@@ -5,6 +5,7 @@ import { LuEye, LuEyeOff } from 'react-icons/lu';
 import { MdFacebook } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { apiAuthSignUp } from '../services';
+import toast from 'react-hot-toast';
 // import { useUser } from '../hook/useUser';
 
 export default function SignUp() {
@@ -21,24 +22,19 @@ export default function SignUp() {
 	const handleSignUp = async () => {
 		try {
 			if (inputPassword.trim().length <= 8) {
-				console.log('less than 8 char');
-				return;
+				throw Error('Your password is less than 8 char');
 			}
 			if (!inputPassword.match(/[a-z]/g)) {
-				console.log('Doesnt contain lowercase');
-				return;
+				throw Error("Your password doesn't contain lowercase letter");
 			}
 			if (!inputPassword.match(/[A-Z]/g)) {
-				console.log('Doesnt contain uppercase');
-				return;
+				throw Error("Your password doesn't contain uppercase letter");
 			}
 			if (!inputPassword.match(/[0-9]/g)) {
-				console.log('Doesnt contain digit number');
-				return;
+				throw Error("Your password doesn't contain digit number");
 			}
 			if (!inputPassword.match(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g)) {
-				console.log('Doesnt contain spesial character');
-				return;
+				throw Error("Your password doesn't contain spesial character");
 			}
 			const data = {
 				email: inputEmail,
@@ -54,6 +50,7 @@ export default function SignUp() {
 			}
 			navigate('/verification');
 		} catch (error) {
+			toast.error(error.message);
 			console.log(error.message);
 		}
 	};
@@ -131,7 +128,7 @@ export default function SignUp() {
 							}
 						}}
 						onError={() => {
-							console.log('Login Failed');
+							toast.error('Login Failed');
 						}}
 						text='signup_with'
 						// ux_mode='redirect'
@@ -145,8 +142,8 @@ export default function SignUp() {
 								navigate('/dashboard');
 							}
 						}}
-						onFail={(error) => {
-							console.log('Login Failed!', error);
+						onFail={() => {
+							toast.error('Login Failed');
 						}}
 						onProfileSuccess={(response) => {
 							console.log('Get Profile Success!', response);

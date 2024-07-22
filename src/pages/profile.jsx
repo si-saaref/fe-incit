@@ -2,6 +2,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import { useUser } from '../hook/useUser';
 import { useState } from 'react';
 import { apiEditPassword, apiEditUser } from '../services';
+import toast from 'react-hot-toast';
 
 export default function Profile() {
 	const { user, editUser } = useUser();
@@ -13,7 +14,7 @@ export default function Profile() {
 	const handleChangeUserInformation = async () => {
 		try {
 			if (inputName.trim().length === 0) {
-				alert('Name is stil empty. Are you sure want to save the changes ?');
+				throw Error('Name is stil empty. Are you sure want to save the changes ?');
 			}
 
 			const data = {
@@ -27,7 +28,7 @@ export default function Profile() {
 			}
 			editUser(data);
 		} catch (error) {
-			console.log(error.message);
+			toast.error(error.message);
 		}
 	};
 
@@ -37,7 +38,7 @@ export default function Profile() {
 			const checkPassword = inputCheckPassword.toLowerCase().trim();
 
 			if (newPassword !== checkPassword) {
-				alert('Confirmation password is incorrect. Please check again');
+				throw Error('Confirmation password is incorrect. Please check again');
 			}
 
 			const data = {
@@ -50,7 +51,7 @@ export default function Profile() {
 				throw Error(response.message);
 			}
 		} catch (error) {
-			console.log(error.message);
+			toast.error(error.message);
 		}
 	};
 

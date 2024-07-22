@@ -7,6 +7,7 @@ import FacebookLogin from '@greatsumini/react-facebook-login';
 import { MdFacebook } from 'react-icons/md';
 import { apiAuthSignIn } from '../services';
 import { useUser } from '../hook/useUser';
+import toast from 'react-hot-toast';
 
 export default function SignIn() {
 	const [inputEmail, setInputEmail] = useState('');
@@ -32,6 +33,7 @@ export default function SignIn() {
 			loginUser('manually', response.data);
 			navigate('/dashboard');
 		} catch (error) {
+			toast.error(error.message);
 			console.log(error.message);
 		}
 	};
@@ -95,7 +97,7 @@ export default function SignIn() {
 								}
 							}}
 							onError={() => {
-								console.log('Login Failed');
+								toast.error('Login Failed');
 							}}
 							text='signin_with'
 							// ux_mode='redirect'
@@ -109,8 +111,8 @@ export default function SignIn() {
 									loginUser('facebook', response);
 								}
 							}}
-							onFail={(error) => {
-								console.log('Login Failed!', error);
+							onFail={() => {
+								toast.error('Login Failed');
 							}}
 							render={({ onClick }) => (
 								<div
