@@ -52,7 +52,7 @@ export default function SignUp() {
 			if (response.status !== 201) {
 				throw Error('Failed Sign Up');
 			}
-			navigate('/dashboard');
+			navigate('/verification');
 		} catch (error) {
 			console.log(error.message);
 		}

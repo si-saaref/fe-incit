@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { jwtDecode } from 'jwt-decode';
 import { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';

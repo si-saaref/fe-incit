@@ -1,21 +1,26 @@
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import { googleLogout } from '@react-oauth/google';
-import { apiAuthSignOut } from '../services';
-import { IoLogOutOutline } from 'react-icons/io5';
+import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { IoLogOutOutline } from 'react-icons/io5';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../hook/useUser';
+import { apiAuthSignOut } from '../services';
 
 export default function Navbar() {
 	const navigate = useNavigate();
 	const [isShowDropdown, setIsShowDropdown] = useState(false);
 	const { user, logoutUser } = useUser();
+	const { pathname } = useLocation();
 
 	return (
-		<header className='flex justify-end p-5 px-12 shadow-md bg-white sticky'>
+		<header
+			className={`flex justify-end p-5 px-12 shadow-md bg-white sticky ${
+				pathname === '/sign-up' || pathname === '/sign-in' ? 'hidden' : ''
+			}`}
+		>
 			<div className='flex gap-5 justify-end w-full navbar items-center'>
 				{user && (
 					<ul className='flex-1'>

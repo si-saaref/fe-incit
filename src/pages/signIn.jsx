@@ -29,8 +29,8 @@ export default function SignIn() {
 			if (response.status !== 200) {
 				throw Error(response.message);
 			}
-			navigate('/dashboard');
 			loginUser('manually', response.data);
+			navigate('/dashboard');
 		} catch (error) {
 			console.log(error.message);
 		}

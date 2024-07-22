@@ -22,7 +22,7 @@ export default function Dashboard() {
 	}, [fetchDashboardSummaryData, fetchDashboardTableData]);
 
 	return (
-		<div className=''>
+		<div className='py-10'>
 			<main className='page-wrapper'>
 				<h1>Summary Information</h1>
 				<span className='separator' />
@@ -75,7 +75,9 @@ export default function Dashboard() {
 									</tr>
 								))
 							) : (
-								<div className=''>No Data</div>
+								<tr className=''>
+									<td>No Data</td>
+								</tr>
 							)}
 						</tbody>
 					</table>

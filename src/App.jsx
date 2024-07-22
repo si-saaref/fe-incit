@@ -1,33 +1,38 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/navbar';
+import PrivateRoute from './components/privateRoute';
+import UserContextProvider from './context/userContext';
+import Dashboard from './pages/dashboard';
+import Homepage from './pages/homepage';
+import NotFound from './pages/notFound';
+import Profile from './pages/profile';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
-import Homepage from './pages/homepage';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import Dashboard from './pages/dashboard';
-import Profile from './pages/profile';
-import Navbar from './components/navbar';
-import UserContextProvider from './context/userContext';
 
 function App() {
 	return (
 		<>
 			<GoogleOAuthProvider clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}>
 				<UserContextProvider>
-					<Router>
+					<RouterProvider router={router} />
+					{/* <Router>
 						<Navbar />
-						<main className='py-10'>
+						<main>
 							<Routes>
-								{/*! REPORT - CR */}
+								<Route element={<PrivateRoute />}>
+									<Route path='/my-profile' element={<Profile />} />
+									<Route path='/dashboard' element={<Dashboard />} />
+								</Route>
 								<Route path='/*' element={<Homepage />} />
 								<Route path='/' element={<Homepage />} />
-								<Route path='/my-profile' element={<Profile />} />
-								<Route path='/dashboard' element={<Dashboard />} />
 								<Route path='/sign-in' element={<SignIn />} />
 								<Route path='/sign-up' element={<SignUp />} />
+								<Route path='/verification' element={<VerificationEmail />} />
 							</Routes>
 						</main>
-					</Router>
+					</Router> */}
 				</UserContextProvider>
 			</GoogleOAuthProvider>
 		</>
@@ -35,3 +40,43 @@ function App() {
 }
 
 export default App;
+
+const router = createBrowserRouter([
+	{
+		path: '/sign-in',
+		element: <SignIn />,
+	},
+	{
+		path: '/sign-up',
+		element: <SignUp />,
+	},
+	{
+		path: '/',
+		element: (
+			<>
+				<Navbar />
+				<Homepage />
+			</>
+		),
+	},
+	{
+		path: '/',
+		element: <PrivateRoute />,
+		errorElement: <NotFound />,
+		children: [
+			// {
+			// 	index: true,
+			// 	element: <Homepage />,
+			// },
+			{
+				path: 'dashboard',
+				element: <Dashboard />,
+			},
+
+			{
+				path: 'my-profile',
+				element: <Profile />,
+			},
+		],
+	},
+]);
