@@ -22,7 +22,7 @@ export default function SignUp() {
 
 	const handleSignUp = async () => {
 		try {
-			const validatedPassword = passwordChecker(inputPassword);
+			const validatedPassword = passwordChecker(inputPassword.trim());
 			if (validatedPassword) {
 				const data = {
 					email: inputEmail,
@@ -34,9 +34,14 @@ export default function SignUp() {
 				console.log(response);
 
 				if (response.status !== 201) {
-					throw Error('Failed Sign Up');
+					throw Error(response.message);
 				}
-				navigate('/verification');
+				toast.success(
+					'You account successfully created. Please  verify your email to use the application.'
+				);
+				setTimeout(() => {
+					navigate('/sign-in');
+				}, 2000);
 			}
 		} catch (error) {
 			toast.error(error.message);

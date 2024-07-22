@@ -54,7 +54,7 @@ export default function Profile() {
 				throw Error('Confirmation password is incorrect. Please check again');
 			}
 
-			const validatedPassword = passwordChecker(inputNewPassword);
+			const validatedPassword = passwordChecker(inputNewPassword.trim());
 			if (validatedPassword) {
 				const data = {
 					oldPassword: inputOldPassword.trim(),

@@ -11,6 +11,7 @@ import Profile from './pages/profile';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import { Toaster } from 'react-hot-toast';
+import VerificationEmail from './pages/verificationEmail';
 
 function App() {
 	return (
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
 	{
 		path: '/sign-up',
 		element: <SignUp />,
+	},
+	{
+		path: '/verification',
+		element: <VerificationEmail />,
 	},
 	{
 		path: '/',

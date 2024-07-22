@@ -27,6 +27,10 @@ export default function SignIn() {
 				password: inputPassword,
 			};
 			const response = await apiAuthSignIn(data);
+			if (response.status === 403) {
+				navigate('/verification');
+				return;
+			}
 			if (response.status !== 200) {
 				throw Error(response.message);
 			}

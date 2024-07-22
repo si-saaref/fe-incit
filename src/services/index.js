@@ -118,3 +118,14 @@ export const apiGetDetailUserData = async () => {
 
 	return respJson.json();
 };
+
+export const apiResendEmailVerification = async (email) => {
+	const respJson = await fetch(`${baseURL}/auth/resend-email-verification/${email}`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+		},
+	});
+
+	return respJson.json();
+};
