@@ -51,7 +51,7 @@ export default function Dashboard() {
 						</tr>
 					</thead>
 					<tbody>
-						{dataTable.length !== 0 ? (
+						{dataTable?.length !== 0 ? (
 							dataTable?.map((item, idx) => (
 								<tr key={item.id}>
 									<td>{idx + 1}</td>

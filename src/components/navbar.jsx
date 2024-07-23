@@ -21,7 +21,7 @@ export default function Navbar() {
 				pathname === '/sign-up' || pathname === '/sign-in' ? 'hidden' : ''
 			}`}
 		>
-			<div className='flex gap-10 justify-end w-full navbar items-center'>
+			<div className='flex gap-10 justify-between w-full navbar items-center'>
 				<img
 					onClick={() => {
 						navigate('/dashboard');

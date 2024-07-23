@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { apiAuthSignUp } from '../services';
 import toast from 'react-hot-toast';
 import { passwordChecker } from '../utils';
+import { useUser } from '../hook/useUser';
 // import { useUser } from '../hook/useUser';
 
 export default function SignUp() {
@@ -14,7 +15,7 @@ export default function SignUp() {
 	const [inputPassword, setInputPassword] = useState('');
 	const [isShowPassword, setIsShowPassword] = useState(false);
 	const navigate = useNavigate();
-	// const { setUser } = useUser();
+	const { loginUser } = useUser();
 
 	const handleClickPreviewPassword = () => {
 		setIsShowPassword((prevValue) => !prevValue);
@@ -115,9 +116,9 @@ export default function SignUp() {
 					</div>
 					<GoogleLogin
 						width={300}
-						onSuccess={(credentialResponse) => {
-							console.log(credentialResponse);
+						onSuccess={async (credentialResponse) => {
 							if (credentialResponse.credential) {
+								await loginUser('google', credentialResponse);
 								navigate('/dashboard');
 							}
 						}}
@@ -131,7 +132,6 @@ export default function SignUp() {
 					<FacebookLogin
 						appId='2197309287310628'
 						onSuccess={(response) => {
-							console.log('Login Success!', response);
 							if (response.accessToken) {
 								navigate('/dashboard');
 							}

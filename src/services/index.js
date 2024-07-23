@@ -27,15 +27,27 @@ export const apiAuthSignIn = async (data) => {
 	return respJson.json();
 };
 
-export const apiAuthSignOut = async () => {
-	const data = {
-		email: 'testing@gmail.com',
-	};
-	const respJson = await fetch(`${baseURL}/auth/sign-out`, {
+export const apiAuthSignInWithGoogle = async (data) => {
+	const respJson = await fetch(`${baseURL}/auth/sign-in-google`, {
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
 			'Content-type': 'application/json',
+		},
+	});
+
+	return respJson.json();
+};
+
+export const apiAuthSignOut = async () => {
+	const tokenUser = Cookies.get('tokenUser') ?? '';
+	const token = Buffer.from(tokenUser, 'base64').toString('');
+
+	const respJson = await fetch(`${baseURL}/auth/sign-out`, {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: `Bearer ${token}`,
 		},
 	});
 

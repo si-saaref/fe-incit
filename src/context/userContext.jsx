@@ -2,6 +2,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import { apiAuthSignInWithGoogle } from '../services';
 
 export const UserContext = createContext();
 
@@ -29,15 +30,21 @@ export default function UserContextProvider({ children }) {
 
 		if (type === 'google') {
 			const decodedJwt = jwtDecode(data?.credential);
-			const encryptToken = data?.credential ? Buffer.from(data?.credential).toString('base64') : '';
-			Cookies.set('tokenUser', encryptToken);
-			const userData = {
+			const { data: dataResp } = await apiAuthSignInWithGoogle({
 				email: decodedJwt?.email,
 				name: decodedJwt?.name,
-				picture: decodedJwt?.picture,
-			};
-			Cookies.set('userData', JSON.stringify(userData));
-			setUser(userData);
+			});
+			const dataDecoded = jwtDecode(dataResp?.token);
+
+			const encryptToken = dataResp?.token ? Buffer.from(dataResp?.token).toString('base64') : '';
+			Cookies.set('tokenUser', encryptToken);
+			// const userData = {
+			// 	email: decodedJwt?.email,
+			// 	name: decodedJwt?.name,
+			// 	picture: decodedJwt?.picture,
+			// };
+			Cookies.set('userData', JSON.stringify(dataDecoded?.user));
+			setUser(dataDecoded?.user);
 		}
 
 		if (type === 'facebook') {

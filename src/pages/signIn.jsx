@@ -94,10 +94,10 @@ export default function SignIn() {
 					<div className='flex flex-col gap-3'>
 						<GoogleLogin
 							width={300}
-							onSuccess={(credentialResponse) => {
+							onSuccess={async (credentialResponse) => {
 								if (credentialResponse.credential) {
+									await loginUser('google', credentialResponse);
 									navigate('/dashboard');
-									loginUser('google', credentialResponse);
 								}
 							}}
 							onError={() => {

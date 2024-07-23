@@ -14,7 +14,7 @@ For the app data, I use the TMDB Api to get the list movie.
 2. Go to the project directory
 
 ```bash
-  cd fe-app
+  cd fe-incit
 ```
 
 3. Install dependencies
