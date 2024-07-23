@@ -2,7 +2,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { apiAuthSignInWithGoogle } from '../services';
+import { apiAuthSignInOauth } from '../services';
 
 export const UserContext = createContext();
 
@@ -30,7 +30,7 @@ export default function UserContextProvider({ children }) {
 
 		if (type === 'google') {
 			const decodedJwt = jwtDecode(data?.credential);
-			const { data: dataResp } = await apiAuthSignInWithGoogle({
+			const { data: dataResp } = await apiAuthSignInOauth({
 				email: decodedJwt?.email,
 				name: decodedJwt?.name,
 			});
@@ -53,18 +53,22 @@ export default function UserContextProvider({ children }) {
 				// `https://graph.facebook.com/${data.userID}?fields=email,birthday,location,locale,age_range,currency,name,gender&access_token=${data.accessToken}`
 			);
 			const response = await resp.json();
-			console.log(response);
-			const encryptToken = data?.accessToken
-				? Buffer.from(data?.accessToken).toString('base64')
-				: '';
-			Cookies.set('tokenUser', encryptToken);
-			const userData = {
-				email: response?.email,
+
+			const { data: dataResp } = await apiAuthSignInOauth({
 				name: response?.name,
-				picture: response?.picture?.data?.url,
-			};
-			Cookies.set('userData', JSON.stringify(userData));
-			setUser(userData);
+				email: response?.email ?? `${response?.name.toLowerCase().replace(' ', '_')}@gmail.com`,
+			});
+			const decodedJwt = jwtDecode(dataResp?.token);
+
+			const encryptToken = dataResp?.token ? Buffer.from(dataResp?.token).toString('base64') : '';
+			Cookies.set('tokenUser', encryptToken);
+			// const userData = {
+			// 	email: response?.email,
+			// 	name: response?.name,
+			// 	picture: response?.picture?.data?.url,
+			// };
+			Cookies.set('userData', JSON.stringify(decodedJwt?.user));
+			setUser(decodedJwt?.user);
 		}
 	};
 

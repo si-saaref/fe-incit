@@ -27,8 +27,8 @@ export const apiAuthSignIn = async (data) => {
 	return respJson.json();
 };
 
-export const apiAuthSignInWithGoogle = async (data) => {
-	const respJson = await fetch(`${baseURL}/auth/sign-in-google`, {
+export const apiAuthSignInOauth = async (data) => {
+	const respJson = await fetch(`${baseURL}/auth/sign-in-oauth`, {
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
